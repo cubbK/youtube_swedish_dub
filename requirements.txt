@@ -1,0 +1,11 @@
+asyncio==3.4.3
+beautifulsoup4==4.12.3
+bs4==0.0.2
+neutron-web==0.5
+PyQt6==6.8.0
+PyQt6-Qt6==6.8.1
+PyQt6-WebEngine==6.8.0
+PyQt6-WebEngine-Qt6==6.8.1
+PyQt6_sip==13.9.1
+soupsieve==2.6
+websockets==14.1

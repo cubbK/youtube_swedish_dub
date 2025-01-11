@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div class="inputUrlContainer">
+      <span>Youtube url:</span>
+      <input
+        id="inputUrl"
+        placeholder="https://www.youtube.com/watch?v=uvMDjf_Mmv4"
+      />
+      <button id="submitUrl">Submit</button>
+    </div>
+    <div id="youtube-iframe-container"></div>
+    <iframe
+      id="youtube-iframe"
+      width="100%"
+      height="500"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+  </body>
+</html>
