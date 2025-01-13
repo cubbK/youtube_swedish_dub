@@ -9,3 +9,7 @@ body {
 .inputUrlContainer input {
   width: 50%;
 }
+
+.status-container {
+  text-align: center;
+}
