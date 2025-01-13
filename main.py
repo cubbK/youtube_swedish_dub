@@ -50,8 +50,8 @@ def onSubmitUrlClick():
                 lines.append(line)
                 subtitle_info = extract_subtitle_info(line)
                 subtitles_info.append(subtitle_info)
-                last_time = subtitles_info[-1].end_time
-                set_status("Transcribing audio... [last_time]")
+                last_time = subtitles_info[-1]["end_time"]
+                set_status(f"Transcribing audio... [{last_time}]")
             except Exception as err:
                 print(err)
 
