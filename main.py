@@ -5,7 +5,9 @@ from pytubefix.cli import on_progress
 import whisper
 from capture_output import capture_output
 from extract_subtitle_info import extract_subtitle_info
-from html import escape
+from deep_translator import GoogleTranslator
+
+translator = GoogleTranslator(source='auto', target='sv')
 
 win = Neutron.Window("Youtube Sweidsh Dub", size=(1200, 800), css="def.css")
 win.display(file="render.html")
@@ -56,7 +58,9 @@ def onSubmitUrlClick():
                 last_time = subtitles_info[-1]["end_time"]
                 set_status(f"Transcribing audio...  Done until minute {seconds_to_minutes(last_time)} ")
                 
-                table_row = f"""<tr><th scope="col">{subtitle_info["index"]}</th><th scope="col">{subtitle_info["start_time"]}</th><th scope="col">{subtitle_info["end_time"]}</th><th scope="col">{escape_quotes(subtitle_info["text"])}</th><th scope="col">Translated</th></tr>"""
+                translation = translator.translate(subtitle_info["text"])
+                
+                table_row = f"""<tr><th scope="col">{subtitle_info["index"]}</th><th scope="col">{subtitle_info["start_time"]}</th><th scope="col">{subtitle_info["end_time"]}</th><th scope="col">{escape_quotes(subtitle_info["text"])}</th><th scope="col">{escape_quotes(translation)}</th></tr>"""
                 # subtitle_div = win.createElement("div")
                 # subtitle_div.innerHTML = escape_quotes(subtitle_info['text'])
                 win.getElementById("transcription-table").append(table_row)
