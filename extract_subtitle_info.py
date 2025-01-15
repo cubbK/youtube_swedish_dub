@@ -1,6 +1,6 @@
 import re
 
-def extract_subtitle_info(line):
+def extract_subtitle_info(line, index):
     # Define the regular expression pattern to match the timestamp and text
     pattern = r"\[(\d{2}):(\d{2})\.(\d{3})\s*-->\s*(\d{2}):(\d{2})\.(\d{3})\]\s*(.*)"
     
@@ -17,6 +17,7 @@ def extract_subtitle_info(line):
         
         # Create an object with the extracted data
         subtitle = {
+            "index": index,
             "start_time": start_time_seconds,
             "end_time": end_time_seconds,
             "text": text.strip()

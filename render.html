@@ -16,16 +16,31 @@
       <span>Status:</span>
       <span id="status">Waiting for link</span>
     </div>
-    <div id="youtube-iframe-container"></div>
-    <iframe
-      id="youtube-iframe"
-      width="100%"
-      height="500"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
+    <div id="youtube-iframe-container">
+      <iframe
+        id="youtube-iframe"
+        width="100%"
+        height="700"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; fullscreen"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <table>
+      <thead>
+        <td>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Transcription</th>
+            <th scope="col">Translated</th>
+          </tr>
+        </td>
+      </thead>
+      <tbody id="transcription-table"></tbody>
+    </table>
   </body>
 </html>

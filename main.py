@@ -5,6 +5,7 @@ from pytubefix.cli import on_progress
 import whisper
 from capture_output import capture_output
 from extract_subtitle_info import extract_subtitle_info
+from html import escape
 
 win = Neutron.Window("Youtube Sweidsh Dub", size=(1200, 800), css="def.css")
 win.display(file="render.html")
@@ -33,6 +34,8 @@ def transcribe_audio():
     model = whisper.load_model("turbo")
     result = model.transcribe("audio.mp4", word_timestamps=True, verbose=True)
     
+def escape_quotes(text):
+    return text.replace('"', '\\"').replace("'", "\\'")
 
 def onSubmitUrlClick():
     setIframeSrc()
@@ -40,21 +43,34 @@ def onSubmitUrlClick():
     set_status("Downloading audio...")
     download_audio(win.getElementById("inputUrl").value)
     
-    set_status("Transcribing audio...")
+    set_status("Initializing Whisper...")
     lines = []
     subtitles_info = []
     # Consume the generator
-    for line in capture_output(transcribe_audio):
+    for index, line in enumerate(capture_output(transcribe_audio)):
         if "-->" in line and line not in lines:
             try:
                 lines.append(line)
-                subtitle_info = extract_subtitle_info(line)
+                subtitle_info = extract_subtitle_info(line, index)
                 subtitles_info.append(subtitle_info)
                 last_time = subtitles_info[-1]["end_time"]
-                set_status(f"Transcribing audio... [{last_time}]")
+                set_status(f"Transcribing audio...  Done until minute {seconds_to_minutes(last_time)} ")
+                
+                table_row = f"""<tr><th scope="col">{subtitle_info["index"]}</th><th scope="col">{subtitle_info["start_time"]}</th><th scope="col">{subtitle_info["end_time"]}</th><th scope="col">{escape_quotes(subtitle_info["text"])}</th><th scope="col">Translated</th></tr>"""
+                # subtitle_div = win.createElement("div")
+                # subtitle_div.innerHTML = escape_quotes(subtitle_info['text'])
+                win.getElementById("transcription-table").append(table_row)
+                
             except Exception as err:
                 print(err)
 
+def seconds_to_minutes(seconds):
+    # Calculate minutes and remaining seconds
+    minutes = int(seconds // 60)
+    remaining_seconds = int(seconds % 60)
+    
+    # Format as MM:SS
+    return f"{minutes:02}:{remaining_seconds:02}"
 
 win.getElementById("submitUrl").addEventListener("click", Neutron.event(onSubmitUrlClick))
 
